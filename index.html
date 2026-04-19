@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="brand">
+            <img src="img.jpeg" alt="ADHISHRISHTY Logo">
+            <span>ADHISHRISHTY</span>
+        </div>
+        <section>
+            <form id="loginForm">
+            <h1>Login</h1>
+            <div class="inputbox">
+                <ion-icon name="mail-outline"></ion-icon>
+                <input type="email" id="email" required>
+                <label for="email">Email</label>
+            </div>
+            <div class="inputbox">
+                <ion-icon name="lock-closed-outline" class="lock-icon"></ion-icon>
+                <input type="password" id="password" required>
+                <label for="password">Password</label>
+                <ion-icon name="eye-off-outline" class="toggle-password"></ion-icon>
+            </div>
+            <div class="forget">
+                <label for="remember">
+                    <input type="checkbox" id="remember">Remember Me
+                </label>
+                <a href="#">Forgot Password?</a>
+            </div>
+            <button type="submit">
+                <span class="btn-text">Log in</span>
+                <span class="btn-loader"></span>
+            </button>
+            <div class="divider">
+                <span>or continue with</span>
+            </div>
+            <div class="social-login">
+                <button type="button" class="social-btn google">
+                    <ion-icon name="logo-google"></ion-icon>
+                </button>
+                <button type="button" class="social-btn github">
+                    <ion-icon name="logo-github"></ion-icon>
+                </button>
+            </div>
+            <div class="register">
+                <p>Don't have an account? <a href="#">Register</a></p>
+            </div>
+        </form>
+    </section>
+    </div>
+
+    <footer class="developers">
+        <h3>Developer</h3>
+        <div class="dev-details">
+            <p><strong>Name:</strong>ADHITHYA SU</p>
+            <p><strong>Email:</strong> adhithyasu6@gmail.com</p>
+            <p><strong>GitHub:</strong> https://github.com/adhithyasu</p>
+        </div>
+    </footer>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.querySelector('.toggle-password');
+        const lockIcon = document.querySelector('.lock-icon');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const btnText = submitBtn.querySelector('.btn-text');
+
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.setAttribute('name', type === 'password' ? 'eye-off-outline' : 'eye-outline');
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = passwordInput.value;
+            const remember = document.getElementById('remember').checked;
+
+            if (!email || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            btnText.textContent = 'Logging in...';
+            submitBtn.classList.add('loading');
+
+            setTimeout(() => {
+                console.log('Login attempt:', { email, password, remember });
+                alert('Login functionality would work here!\n\nEmail: ' + email + '\nRemember: ' + remember);
+                btnText.textContent = 'Log in';
+                submitBtn.classList.remove('loading');
+            }, 1500);
+        });
+
+        const inputs = form.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => input.parentElement.classList.add('focused'));
+            input.addEventListener('blur', () => {
+                if (!input.value) input.parentElement.classList.remove('focused');
+            });
+        });
+    </script>
+</body>
+</html>
